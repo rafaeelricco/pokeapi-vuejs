@@ -10,7 +10,7 @@
 
 # Pokedex
 
-Gostaria de agradecer a oportunidade de mostrar meu trabalho através deste projeto de escopo simples, para avaliação técnica para a [Copybase](https://copybase.com.br/).
+Gostaria de agradecer a [Copybase](https://copybase.com.br/) pela oportunidade de participar do processo seletivo. Foi um desafio muito interessante e divertido de se fazer.
 
 - [PokéAPI](https://pokeapi.co/)
 - [Demonstração do Projeto](https://pokeapi-vuejs.vercel.app/)

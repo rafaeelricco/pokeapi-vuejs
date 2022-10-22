@@ -1,6 +1,5 @@
 <template>
   <div class="app">
-    <img src="icons/copybase.png" class="copybase-logo" alt="copybase" />
     <!-- Search -->
     <vs-tooltip bottom>
       <div class="search-bar">
@@ -242,17 +241,22 @@ export default {
   margin: 8px;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 1rem;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
+  border-radius: 1rem;
+  transition: all 0.2s ease-out;
   &:hover {
     transform: scale(1.1);
+    border-radius: 1.618rem;
   }
 
   .pokename-card {
     font-size: 1.218rem;
     text-align: center;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+      color: #1e1e1e;
+    }
   }
 }
 
@@ -267,7 +271,6 @@ export default {
 .layout-container {
   display: grid;
   gap: 4px;
-
   h1 {
     margin: 0 0 0.618rem 0;
   }
@@ -283,13 +286,13 @@ h2 {
   margin: 6px 0;
 }
 
-.image-dialog {
-  width: 100%;
-}
-
 .icon-dialog {
   width: 1.5rem;
   height: 1.5rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .name-dialog {
