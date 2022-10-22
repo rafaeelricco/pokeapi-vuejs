@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <img src="icons/copybase.png" class="copybase-logo" alt="copybase" />
-
+    <!-- Search -->
     <vs-tooltip bottom>
       <div class="search-bar">
         <vs-input
@@ -18,7 +18,7 @@
       </div>
       <template #tooltip> Digite o nome do seu Pokemon favorito </template>
     </vs-tooltip>
-
+    <!-- Pokemon Cards -->
     <div class="cards">
       <div v-for="pokemon in filteredPokemons" :key="pokemon.id">
         <div
@@ -31,12 +31,13 @@
               pokemon
             )}.png`"
             :alt="pokemon.name"
-            width="30%"
+            width="32%"
           />
           <h2 class="pokename-card">{{ get_name(pokemon) }}</h2>
         </div>
       </div>
     </div>
+    <!-- Dialog modal -->
     <div class="center">
       <vs-dialog
         prevent-close
@@ -155,14 +156,15 @@ export default {
     return {
       search: '',
       pokemons: [],
-      active: false,
       evolutions: [],
+      active: false,
       selected_pokemon: null
     }
   },
 
   mounted() {
     axios
+      // requisição para pegar todos os pokemons
       .get('https://pokeapi.co/api/v2/pokemon?limit=100')
       .then((response) => {
         this.pokemons = response.data.results
@@ -171,14 +173,17 @@ export default {
 
   methods: {
     get_id(pokemon) {
+      // método para pegar o id do pokemon
       return pokemon.url.split('/')[6]
     },
 
     get_name(pokemon) {
+      // método para formatar o nome do pokemon
       return pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
     },
 
     show_pokemon(id) {
+      // requisição para pegar as informações do pokemon
       axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`).then((response) => {
         this.selected_pokemon = response.data
         this.active = true
@@ -187,12 +192,14 @@ export default {
 
     show_specie(id) {
       axios
+        // requisição para pegar o id da cadeia de evolução
         .get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
         .then((response) => {
           const data = response.data
           const link = data.evolution_chain.url
           const id = link.split('/')[6]
 
+          // requisição para pegar os nomes das evoluções
           axios
             .get(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
             .then((response) => {
@@ -209,6 +216,7 @@ export default {
   },
 
   computed: {
+    // filtrar os pokemons pelo input de pesquisa
     filteredPokemons() {
       return this.pokemons.filter((pokemon) => {
         return pokemon.name.includes(this.search.toLowerCase())
@@ -220,22 +228,7 @@ export default {
 </script>
 
 <style lang="scss">
-.app {
-  padding: 1% 6%;
-}
-
-.copybase-logo {
-  width: 100%;
-  height: 100%;
-  max-width: 200px;
-  max-height: 200px;
-  margin: 1rem 0 2rem 0;
-}
-
-.search-bar {
-  margin: 0 0 2rem 0;
-}
-
+/* Cards */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -252,16 +245,18 @@ export default {
   border-radius: 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+
   &:hover {
     transform: scale(1.1);
   }
+
   .pokename-card {
     font-size: 1.218rem;
     text-align: center;
   }
 }
 
-/* Dialog Styles */
+/* Dialog */
 .content-dialog {
   display: flex;
   padding: 1rem;
@@ -272,6 +267,7 @@ export default {
 .layout-container {
   display: grid;
   gap: 4px;
+
   h1 {
     margin: 0 0 0.618rem 0;
   }
@@ -296,52 +292,13 @@ h2 {
   height: 1.5rem;
 }
 
-/* Summary styles */
-.details-dialog {
-}
-
-details[open] summary ~ * {
-  animation: sweep 0.5s ease-in-out;
-}
-
-@keyframes sweep {
-  0% {
-    opacity: 0;
-    margin-top: -10px;
-  }
-  100% {
-    opacity: 1;
-    margin-top: 0px;
-  }
-}
-
-.summary-dialog {
-  font-size: 21px;
-  font-weight: 500;
-  color: rgb(99, 99, 102);
-  margin: 8px 0 8px 0;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-    color: rgb(16, 16, 16);
-  }
-}
-
-.evolutions-dialog {
-  display: flex;
-  gap: 5px;
-  font-size: 16px;
-  margin: 8px 0 8px 0;
-  font-weight: 600;
-  color: rgb(99, 99, 102);
-}
-/* ---------------------------- */
-
 .name-dialog {
   font-style: normal;
   font-weight: 600;
   font-size: 40px;
   margin: 8px 0;
 }
+
 .chips-dialog {
   display: flex;
   gap: 4px;
@@ -357,5 +314,43 @@ details[open] summary ~ * {
   font-weight: 500;
   font-size: 21px;
   margin: 6px 0;
+}
+
+/* Details */
+details[open] summary ~ * {
+  animation: sweep 0.5s ease-in-out;
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    margin-top: -10px;
+  }
+
+  100% {
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
+.summary-dialog {
+  font-size: 21px;
+  font-weight: 500;
+  color: rgb(99, 99, 102);
+  margin: 8px 0 8px 0;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: rgb(16, 16, 16);
+  }
+}
+
+.evolutions-dialog {
+  display: flex;
+  gap: 5px;
+  font-size: 16px;
+  margin: 8px 0 8px 0;
+  font-weight: 600;
+  color: rgb(99, 99, 102);
 }
 </style>
