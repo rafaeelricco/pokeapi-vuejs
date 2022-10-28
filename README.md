@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://res.cloudinary.com/dnqiosdb6/image/upload/v1666394389/cover/cover-pokedex_hhjn29.png" alt="cover">
+  <img src="https://res.cloudinary.com/dnqiosdb6/image/upload/v1666956056/cover/pokedex-cover_wmwleo.png" alt="cover">
 </p>
 
 <p align="center">

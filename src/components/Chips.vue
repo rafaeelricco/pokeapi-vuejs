@@ -5,8 +5,9 @@
 </template>
 <script>
 export default {
-  name: 'PokemonChips',
+  name: 'ChipsComponent',
   props: {
+    // propriedade para receber o texto do chip
     text: String
   }
 }
